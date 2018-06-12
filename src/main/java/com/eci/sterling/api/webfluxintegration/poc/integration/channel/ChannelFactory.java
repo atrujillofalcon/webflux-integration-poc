@@ -3,7 +3,6 @@ package com.eci.sterling.api.webfluxintegration.poc.integration.channel;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.channel.FluxMessageChannel;
-import org.springframework.integration.channel.PublishSubscribeChannel;
 import org.springframework.integration.config.EnableIntegration;
 import org.springframework.messaging.MessageChannel;
 
@@ -36,7 +35,7 @@ public class ChannelFactory {
 
     @Bean
     public MessageChannel confirmedChannel() {
-        return new PublishSubscribeChannel();
+        return new FluxMessageChannel();
     }
 
     @Bean

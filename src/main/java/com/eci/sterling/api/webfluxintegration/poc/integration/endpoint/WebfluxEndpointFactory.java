@@ -21,7 +21,6 @@ public class WebfluxEndpointFactory {
         requestMapping.setPathPatterns("/order");
         endpoint.setRequestMapping(requestMapping);
         endpoint.setRequestChannel(fluxRequestChannel);
-//        endpoint.setReplyChannel(fluxResponseChannel);
         return endpoint;
     }
 
