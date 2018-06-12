@@ -51,8 +51,8 @@ public class OrderAggregator {
     }
 
     @CorrelationStrategy
-    public int correlateByOrderParentId(Order order) {
-        return Integer.valueOf(order.getParentOrderId());
+    public String correlateByOrderParentId(Order order) {
+        return order.getParentOrderId();
     }
 
     /**

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 /**
  * @author Arnaldo Trujillo
@@ -21,7 +22,7 @@ public class EntryService {
 
     @ServiceActivator(inputChannel = "fluxRequestChannel", outputChannel = "splitterChannel")
     public Mono<Order> getOriginalOrderAndSplit() {
-        return Mono.just(new Order("1", null, false, Arrays.asList(
+        return Mono.just(new Order(UUID.randomUUID().toString(), null, false, Arrays.asList(
                 new LineItem("motorola g5"),
                 new LineItem("cesta de naranjas"),
                 new LineItem("palomitas")
