@@ -17,6 +17,6 @@ public interface OrderProcessor {
      * @param order
      */
     @Gateway(requestChannel = "splitterChannel")
-    void processOrder(Mono<Order> order);
+    Mono<Order> processOrder(Mono<Order> order);
 
 }

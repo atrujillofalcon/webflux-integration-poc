@@ -19,13 +19,18 @@ public class EntryService {
     @Autowired
     OrderProcessor orderProcessor;
 
-    @ServiceActivator(inputChannel = "fluxRequestChannel")
-    public void getOriginalOrderAndSplit() {
-        orderProcessor.processOrder(Mono.just(new Order("1", null, false, Arrays.asList(
+    @ServiceActivator(inputChannel = "fluxRequestChannel", outputChannel = "splitterChannel")
+    public Mono<Order> getOriginalOrderAndSplit() {
+        return Mono.just(new Order("1", null, false, Arrays.asList(
                 new LineItem("motorola g5"),
                 new LineItem("cesta de naranjas"),
                 new LineItem("palomitas")
-        ))));
+        )));
+    }
+
+    @ServiceActivator(inputChannel = "fluxResponseChannel")
+    public Mono<Order> returnProcessedOrder(Mono<Order> order) {
+        return order;
     }
 
 }

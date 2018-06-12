@@ -22,6 +22,7 @@ import org.springframework.integration.annotation.Aggregator;
 import org.springframework.integration.annotation.CorrelationStrategy;
 import org.springframework.integration.annotation.MessageEndpoint;
 import org.springframework.integration.annotation.ReleaseStrategy;
+import reactor.core.publisher.Mono;
 
 import java.util.Collection;
 import java.util.List;
@@ -34,7 +35,7 @@ import java.util.stream.Collectors;
 public class OrderAggregator {
 
     @Aggregator(inputChannel = "aggregateOrderChannel", outputChannel = "fluxResponseChannel", sendTimeout = "10000")
-    public Order joinProcessedOrders(List<Order> processedOrders) {
+    public Mono<Order> joinProcessedOrders(List<Order> processedOrders) {
         System.out.println(processedOrders.size());
 
         Order firstOrder = processedOrders.stream()
@@ -46,7 +47,7 @@ public class OrderAggregator {
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
 
-        return new Order(firstOrder.getOrderId(), null, true, processedItems);
+        return Mono.just(new Order(firstOrder.getOrderId(), null, true, processedItems));
     }
 
     @CorrelationStrategy
