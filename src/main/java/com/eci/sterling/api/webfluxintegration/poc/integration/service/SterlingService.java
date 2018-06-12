@@ -4,12 +4,12 @@ import com.eci.sterling.api.webfluxintegration.poc.domain.Order;
 import com.eci.sterling.api.webfluxintegration.poc.integration.gateway.OrderJoiner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.annotation.ServiceActivator;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Arnaldo Trujillo
  */
-@Component
+@Service
 public class SterlingService {
 
     @Autowired

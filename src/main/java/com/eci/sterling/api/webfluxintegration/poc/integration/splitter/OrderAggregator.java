@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 @MessageEndpoint
 public class OrderAggregator {
 
-    @Aggregator(inputChannel = "aggregateOrderChannel", sendTimeout = "10000")
+    @Aggregator(inputChannel = "aggregateOrderChannel", outputChannel = "fluxResponseChannel", sendTimeout = "10000")
     public Order joinProcessedOrders(List<Order> processedOrders) {
         System.out.println(processedOrders.size());
 
@@ -54,6 +54,12 @@ public class OrderAggregator {
         return Integer.valueOf(order.getParentOrderId());
     }
 
+    /**
+     * Aquí se define la condición para
+     *
+     * @param orders
+     * @return
+     */
     @ReleaseStrategy
     public boolean isCompleteAggregation(List<Order> orders) {
         return orders.size() >= 3;

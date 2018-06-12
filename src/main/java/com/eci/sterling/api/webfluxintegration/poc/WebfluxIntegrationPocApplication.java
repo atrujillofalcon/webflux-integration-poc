@@ -10,7 +10,7 @@ import org.springframework.integration.config.EnableIntegration;
 @IntegrationComponentScan(basePackages = "com.eci.sterling.api.webfluxintegration.integration")
 public class WebfluxIntegrationPocApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(WebfluxIntegrationPocApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(WebfluxIntegrationPocApplication.class, args);
+    }
 }
