@@ -1,0 +1,52 @@
+package com.eci.sterling.api.webfluxintegration.poc.integration.channel;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.integration.channel.DirectChannel;
+import org.springframework.integration.channel.FluxMessageChannel;
+import org.springframework.integration.channel.PublishSubscribeChannel;
+import org.springframework.integration.channel.QueueChannel;
+import org.springframework.integration.config.EnableIntegration;
+import org.springframework.messaging.MessageChannel;
+
+/**
+ * @author Arnaldo Trujillo
+ */
+@Configuration
+@EnableIntegration
+public class ChannelFactory {
+
+    @Bean
+    public MessageChannel fluxResultChannel() {
+        MessageChannel fluxMessageChannel = new FluxMessageChannel();
+
+        return fluxMessageChannel;
+    }
+
+    @Bean
+    public MessageChannel splitterChannel() {
+        return new FluxMessageChannel();
+    }
+
+    @Bean
+    public MessageChannel aggregateOrderChannel() {
+        return new PublishSubscribeChannel();
+    }
+
+    @Bean
+    public MessageChannel confirmedChannel() {
+        return new PublishSubscribeChannel();
+    }
+
+    @Bean
+    public MessageChannel unconfirmedChannel() {
+        return new PublishSubscribeChannel();
+    }
+
+    @Bean
+    //este sería el canal que donde se ejecutaria Sterling
+    public MessageChannel processOrderChannel() {
+        return new FluxMessageChannel();
+    }
+
+}
