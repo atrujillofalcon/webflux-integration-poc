@@ -43,12 +43,15 @@ public class ChannelFactory {
         return new FluxMessageChannel();
     }
 
+    /*@Bean
+    public MessageChannel errorChannel() {
+        return new FluxMessageChannel();
+    }*/
+
     @Bean
     //este sería el canal que donde se ejecutaria Sterling
     public MessageChannel processOrderChannel() {
         return new FluxMessageChannel();
     }
-
-
 
 }

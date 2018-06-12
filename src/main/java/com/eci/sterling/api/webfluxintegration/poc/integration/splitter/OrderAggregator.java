@@ -34,9 +34,12 @@ import java.util.stream.Collectors;
 @MessageEndpoint
 public class OrderAggregator {
 
-    @Aggregator(inputChannel = "aggregateOrderChannel", outputChannel = "fluxResponseChannel", sendTimeout = "10000")
+    @Aggregator(inputChannel = "aggregateOrderChannel", outputChannel = "fluxResponseChannel", sendTimeout = "10000", sendPartialResultsOnExpiry = "true")
     public Mono<Order> joinProcessedOrders(List<Order> processedOrders) {
         System.out.println(processedOrders.size());
+
+        if (true)
+            throw new IllegalArgumentException("Testing error handling");
 
         Order firstOrder = processedOrders.stream()
                 .findFirst()
@@ -51,8 +54,8 @@ public class OrderAggregator {
     }
 
     @CorrelationStrategy
-    public int correlateByOrderParentId(Order order) {
-        return Integer.valueOf(order.getParentOrderId());
+    public String correlateByOrderParentId(Order order) {
+        return order.getParentOrderId();
     }
 
     /**

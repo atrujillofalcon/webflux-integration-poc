@@ -1,4 +1,4 @@
-package com.eci.sterling.api.webfluxintegration.poc.integration.splitter;
+package com.eci.sterling.api.webfluxintegration.poc.integration.router;
 
 import com.eci.sterling.api.webfluxintegration.poc.domain.Order;
 import org.springframework.integration.annotation.MessageEndpoint;
