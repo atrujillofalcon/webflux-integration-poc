@@ -22,6 +22,7 @@ import org.springframework.integration.annotation.Aggregator;
 import org.springframework.integration.annotation.CorrelationStrategy;
 import org.springframework.integration.annotation.MessageEndpoint;
 import org.springframework.integration.annotation.ReleaseStrategy;
+import reactor.core.publisher.Mono;
 
 import java.util.Collection;
 import java.util.List;
@@ -33,8 +34,8 @@ import java.util.stream.Collectors;
 @MessageEndpoint
 public class OrderAggregator {
 
-    @Aggregator(inputChannel = "aggregateOrderChannel", sendTimeout = "10000")
-    public Order joinProcessedOrders(List<Order> processedOrders) {
+    @Aggregator(inputChannel = "aggregateOrderChannel", outputChannel = "fluxResponseChannel", sendTimeout = "10000")
+    public Mono<Order> joinProcessedOrders(List<Order> processedOrders) {
         System.out.println(processedOrders.size());
 
         Order firstOrder = processedOrders.stream()
@@ -46,7 +47,7 @@ public class OrderAggregator {
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
 
-        return new Order(firstOrder.getOrderId(), null, true, processedItems);
+        return Mono.just(new Order(firstOrder.getOrderId(), null, true, processedItems));
     }
 
     @CorrelationStrategy
@@ -54,6 +55,12 @@ public class OrderAggregator {
         return Integer.valueOf(order.getParentOrderId());
     }
 
+    /**
+     * Aquí se define la condición para
+     *
+     * @param orders
+     * @return
+     */
     @ReleaseStrategy
     public boolean isCompleteAggregation(List<Order> orders) {
         return orders.size() >= 3;
