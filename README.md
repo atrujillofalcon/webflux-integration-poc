@@ -4,7 +4,7 @@ Este proyecto es una POC de utilizar Spring Integration junto con Webflux de man
  Splitter-Aggregator ([Scatter-Gather](http://www.enterpriseintegrationpatterns.com/patterns/messaging/BroadcastAggregate.html))
  
  
- ##Uso
+ ## Uso
  
  Actualmente estamos exponiendo un endpoint webflux en:
  
