@@ -29,6 +29,11 @@ public class ChannelFactory {
     }
 
     @Bean
+    public MessageChannel factoryChannel() {
+        return new FluxMessageChannel();
+    }
+
+    @Bean
     public MessageChannel aggregateOrderChannel() {
         return new FluxMessageChannel();
     }
