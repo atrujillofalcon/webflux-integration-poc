@@ -46,7 +46,7 @@
         <!--Hazelcast-->
         <dependency>
             <groupId>com.hazelcast</groupId>
-            <artifactId>hazelcast-client</artifactId>
+            <artifactId>hazelcast-all</artifactId>
             <version>3.10.2</version>
         </dependency>
 
