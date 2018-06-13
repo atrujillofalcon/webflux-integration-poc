@@ -17,15 +17,17 @@ public class SterlingService {
 
     @ServiceActivator(inputChannel = "confirmedChannel", outputChannel = "aggregateOrderChannel")
     public Order confirmOrder(Order order) {
-        order.setConfirmed(true);
-        order.getLineItems().stream().findFirst().ifPresent(lineItem -> lineItem.setStockConfirmed(true));
-        return order;
+        return setLineItemsStock(order, true);
     }
 
     @ServiceActivator(inputChannel = "unconfirmedChannel", outputChannel = "aggregateOrderChannel")
     public Order unconfirmOrder(Order order) {
-        order.setConfirmed(false);
-        order.getLineItems().stream().findFirst().ifPresent(lineItem -> lineItem.setStockConfirmed(true));
+        return setLineItemsStock(order, false);
+    }
+
+    private Order setLineItemsStock(Order order, boolean stockConfirmed) {
+        order.setConfirmed(true);
+        order.getLineItems().stream().findFirst().ifPresent(lineItem -> lineItem.setStockConfirmed(stockConfirmed));
         return order;
     }
 
