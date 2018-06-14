@@ -1,16 +1,16 @@
 package com.eci.sterling.api.webfluxintegration.poc.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+
+import java.io.Serializable;
 
 /**
  * @author Arnaldo Trujillo
  */
 @Data
 @NoArgsConstructor
-public class LineItem {
+public class LineItem implements Serializable {
 
     private boolean stockConfirmed;
 
